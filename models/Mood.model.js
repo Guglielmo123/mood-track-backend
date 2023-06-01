@@ -1,21 +1,24 @@
 const { Schema, model } = require("mongoose");
 
 const moodSchema = new Schema({
-  user: {
+  user: [{
     type: Schema.Types.ObjectId,
     ref: 'User'
-  },
-  mood: {
+  }],
+  mood: [{
     type: String,
     enum: ['Happy', 'Sad', 'Stressed', 'Frustrated', 'Anxious', 'Lonely']
-  },
+  }],
   comment: {
     type: String
   },
-  moodSound: {
+  moodSound: [{
     type: Schema.Types.ObjectId,
     ref: 'MoodSound'
-  }
+  }],
+  date: {type: Date,
+default: Date.now()},
+  
 });
 
 const Mood = model("Mood", moodSchema);
