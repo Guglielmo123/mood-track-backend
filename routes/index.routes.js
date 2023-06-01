@@ -39,7 +39,7 @@ router.get("/create-mood/:moodId", async (req, res)=>{
 
 const moodId = req.params;
 
-if(!mongoose.Types.ObjectId.isValid(projectId)){
+if(!mongoose.Types.ObjectId.isValid(moodId)){
   // status of 2xx is successful.
   // error with 4xx is client-side.
   // error with 5xx is server-side 
@@ -48,12 +48,8 @@ if(!mongoose.Types.ObjectId.isValid(projectId)){
 }
 
 try {
-  let foundMood = await Mood.findById(projectId)
-        .populate('tasks');
-        res.status(200).json(foundProject);
-
-
-
+  let foundMood = await Mood.findById(moodId)
+        res.status(200).json(foundMood);
 
 } catch (error) {
   res.json(error);
