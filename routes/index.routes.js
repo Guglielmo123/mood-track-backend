@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Mood = require('../models/Mood.model');
+const MoodSound = require('../models/MoodSound.model')
 const { route } = require("./index.routes");
 
 // post route to create a mood 
@@ -15,11 +16,22 @@ try {
 }
 });
 
-module.exports = router;
+// post route to create a mood 
+router.post("/create-mood-sound", async (req, res, next) => {
+  const {mood, soundUrl } = req.body;
+  try {
+    let response = await MoodSound.create({mood, soundUrl})
+    res.json(response);
+  
+  } catch (error) {
+    res.json(error);
+  }
+  });
+
 
 // get route to get all moods submitted and show them in calendar 
 
-router.get("/create-mood", async (req, res) =>{
+router.get("/get-mood", async (req, res) =>{
 
   try {
     
@@ -35,9 +47,9 @@ router.get("/create-mood", async (req, res) =>{
 
 //// GET /api/projects/:projectId to display specific info of a Mood in a specific day 
 
-router.get("/create-mood/:moodId", async (req, res)=>{
+router.get("/get-mood/:moodId", async (req, res)=>{
 
-const moodId = req.params;
+const moodId = req.params.moodId;
 
 if(!mongoose.Types.ObjectId.isValid(moodId)){
   // status of 2xx is successful.
@@ -84,3 +96,5 @@ router.delete("/delete-mood/:moodId", async (req, res) => {
     res.json(error);
   }
 });
+
+module.exports = router;

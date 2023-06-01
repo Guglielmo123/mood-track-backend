@@ -5,9 +5,7 @@ const moodSoundSchema = new Schema({
     type: String,
     enum: ['Happy','Excited','Optimistic','Serene','Relaxed','Bored', 'Apathetic','Lonely','Sad','Frustrated','Anxious','Irritated','Livid','Fed Up']
   },
-  soundUrl: {
-    type: Array
-  }
+  soundUrl:[String]
 });
 
 const MoodSound = model("MoodSound", moodSoundSchema);
