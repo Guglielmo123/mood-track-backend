@@ -56,3 +56,31 @@ try {
 }
 
 })
+// UPDATE - my mood
+router.put("/update-mood/:moodId", async (req, res) => {
+  const moodId = req.params.moodId;
+  const { mood, comment, date } = req.body;
+
+  try {
+    let updatedMood = await Mood.findByIdAndUpdate(
+      moodId,
+      { mood, comment, date },
+      { new: true }
+    );
+    res.json(updatedMood);
+  } catch (error) {
+    res.json(error);
+  }
+});
+
+// DELETE specific mood 
+router.delete("/delete-mood/:moodId", async (req, res) => {
+  const moodId = req.params.moodId;
+
+  try {
+    await Mood.findByIdAndDelete(moodId);
+    res.json({ message: "Mood deleted successfully" });
+  } catch (error) {
+    res.json(error);
+  }
+});
